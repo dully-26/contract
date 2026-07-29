@@ -17,6 +17,11 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => \App\Http\Middleware\CheckRole::class,
         ]);
 
+        // Enable CORS middleware
+        $middleware->append(
+            \Illuminate\Http\Middleware\HandleCors::class
+        );
+
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
