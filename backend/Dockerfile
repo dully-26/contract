@@ -11,8 +11,8 @@ RUN apt-get update && apt-get install -y \
 
 RUN a2enmod rewrite
 
-# Copy Laravel backend
-COPY backend/ .
+# Copy Laravel backend files
+COPY . .
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php \
@@ -31,12 +31,9 @@ RUN printf '<Directory /var/www/html/public>\n\
 </Directory>\n' > /etc/apache2/conf-available/laravel.conf \
     && a2enconf laravel
 
-# Permissions
+# Laravel permissions
 RUN chown -R www-data:www-data storage bootstrap/cache
-
-
 
 EXPOSE 80
 
-# Run database migrations then start Apache
 CMD ["apache2-foreground"]
